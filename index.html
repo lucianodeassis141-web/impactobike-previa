@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Impacto Bike · teste do vídeo da oficina</title>
+<link rel="icon" href="logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --azul:#0099DC; --azul-forte:#0077B3; --azul-claro:#E6F5FC; --azul-texto:#005F8F;
+  --fundo:#FFFFFF; --gelo:#E9ECF1; --texto:#14171C; --cinza:#5C6573; --linha:#E4E7EC;
+  --cond:'Barlow Condensed','Arial Narrow',Arial,sans-serif; --txt:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--txt)}
+.topo{display:flex;align-items:center;justify-content:space-between;padding:14px max(16px,4vw);border-bottom:1px solid var(--linha)}
+.topo img{height:34px;width:auto}
+.topo span{font:600 12px var(--cond);letter-spacing:.16em;text-transform:uppercase;color:var(--cinza)}
+.aviso{background:var(--azul-claro);color:var(--azul-texto);font-size:13px;padding:10px max(16px,4vw)}
+.oficina{background:var(--gelo);padding:clamp(40px,8vw,96px) max(16px,4vw)}
+.grade{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);align-items:center}
+.olho{font:700 13px var(--cond);letter-spacing:.18em;text-transform:uppercase;color:var(--azul-texto);margin:0 0 12px}
+h2{font:800 clamp(38px,5.4vw,72px)/.95 var(--cond);text-transform:uppercase;margin:0;text-wrap:balance}
+p.sub{color:var(--cinza);line-height:1.6;margin:18px 0 26px;max-width:46ch}
+.btn{display:inline-block;background:var(--azul-forte);color:#fff;text-decoration:none;font:600 15px var(--txt);padding:14px 22px;border-radius:6px}
+.btn:hover{background:var(--azul-texto)}
+.video{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 60px -30px rgba(0,60,100,.35)}
+.video video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.selo{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.92);color:var(--texto);font:700 12px var(--cond);letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;border-radius:4px;border-left:3px solid var(--azul)}
+.cheio{padding:clamp(40px,8vw,96px) max(16px,4vw);text-align:left}
+.cheio .rotulo{max-width:1200px;margin:0 auto 18px}
+.cheio video{display:block;width:100%;max-width:1200px;margin:0 auto;border-radius:14px;aspect-ratio:16/9;object-fit:cover}
+.nota{max-width:1200px;margin:14px auto 0;color:var(--cinza);font-size:13px}
+@media (max-width:820px){.grade{grid-template-columns:1fr}.video{order:-1}}
+@media (prefers-reduced-motion:reduce){video{animation:none}}
+</style>
+</head>
+<body>
+<header class="topo"><img src="logo.webp" alt="Impacto Bike"><span>Teste</span></header>
+<div class="aviso">Prévia interna: só a seção da oficina com o vídeo novo. O resto do site continua igual.</div>
+
+<section class="oficina">
+  <div class="grade">
+    <div>
+      <p class="olho">Oficina Shimano Service Center</p>
+      <h2>A gente conhece peça por peça.</h2>
+      <p class="sub">Bikes, peças originais Shimano e oficina Shimano Service Center em Arcos/MG.</p>
+      <a class="btn" href="#">Falar com a oficina</a>
+    </div>
+    <div class="video">
+      <video src="cambio.mp4" poster="cambio-capa.jpg" autoplay muted loop playsinline preload="auto"></video>
+      <span class="selo">Shimano 105</span>
+    </div>
+  </div>
+</section>
+
+<section class="cheio">
+  <div class="rotulo"><p class="olho">Opção B · vídeo em largura cheia</p></div>
+  <video src="cambio.mp4" poster="cambio-capa.jpg" autoplay muted loop playsinline preload="auto"></video>
+  <p class="nota">O mesmo clipe ocupando a largura toda, como uma faixa entre as seções.</p>
+</section>
+</body>
+</html>
