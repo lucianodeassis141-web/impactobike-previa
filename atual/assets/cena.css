@@ -1,0 +1,102 @@
+/* Abertura da página inicial (só a home carrega este arquivo). Azul Shimano no fundo, bike vinho e vermelho do logo de apoio. */
+:root{--topo:113px;--mx:clamp(20px,5vw,80px);--gelo:#E9ECF1;--cinza:#9AA3B2}
+html.cena-carregando,html.cena-carregando body{overflow:hidden}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:clip}
+
+/* carregador */
+#abertura{position:fixed;inset:0;z-index:100;background:var(--preto);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;animation:some-ab .4s 6s forwards!important}
+@keyframes some-ab{to{opacity:0;visibility:hidden}}
+.ab-coroa{width:120px;height:120px;color:var(--azul)}
+.ab-coroa svg,.coroa-fundo svg{width:100%;height:100%;display:block}
+.ab-num{font-family:var(--cond);font-style:italic;font-weight:800;font-size:20px;color:#fff;letter-spacing:.08em}
+
+/* cena */
+.cena{position:relative;height:640vh;background:var(--preto);color:#fff}
+.cena-fixa{position:sticky;top:var(--topo);height:calc(100vh - var(--topo));height:calc(100svh - var(--topo));overflow:hidden;isolation:isolate;
+  background:radial-gradient(90% 70% at 62% 62%,#0B2A3B 0%,#0B151C 42%,var(--preto) 78%)}
+#luz{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.horizonte{position:absolute;left:-5%;right:-5%;top:79%;height:2px;z-index:0;background:linear-gradient(90deg,transparent,var(--azul) 28%,#A8E2FA 56%,var(--azul) 78%,transparent);
+  box-shadow:0 0 40px 7px rgba(0,153,220,.5),0 0 110px 34px rgba(0,153,220,.2)}
+.horizonte::after{content:"";position:absolute;left:0;right:0;top:2px;height:21vh;background:linear-gradient(180deg,rgba(0,153,220,.12),transparent 70%)}
+.coroa-fundo{position:absolute;right:calc(26vw - 34vh);top:50%;width:68vh;height:68vh;margin-top:-36vh;z-index:1;color:rgba(0,153,220,.2)}
+.palavra{position:absolute;left:0;right:0;top:42%;z-index:1;text-align:center;font-family:var(--cond);font-style:italic;font-weight:800;font-size:31vw;line-height:.8;letter-spacing:-.015em;color:transparent;
+  background:linear-gradient(100deg,#232A31 0%,#5E6B78 18%,#E6EEF5 27%,#4C5864 38%,#1D242B 52%,#7E8C99 66%,#F4F8FB 74%,#44505B 86%,#1D242B 100%);background-size:220% 100%;background-position:var(--metal,0%) 0;
+  -webkit-background-clip:text;background-clip:text;opacity:.3;transform:translateY(-50%);pointer-events:none;white-space:nowrap;text-transform:uppercase}
+
+.b{position:absolute;z-index:5}
+.b0{left:var(--mx);top:clamp(28px,8vh,110px);width:min(52vw,760px)}
+.b0 h1{font-size:clamp(46px,6.6vw,108px);line-height:.92}
+.roda-texto{display:block;position:relative;height:1em;overflow:hidden;color:var(--azul)}
+.roda-texto .pal{position:absolute;left:0;top:0;white-space:nowrap}
+.roda-texto .l{display:inline-block}
+.b0b{left:var(--mx);bottom:clamp(40px,8vh,96px);width:min(32vw,440px)}
+.b0b p{color:var(--gelo);font-size:clamp(15px,1.2vw,18px);margin:0}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn-linha-claro{border-color:rgba(255,255,255,.7);color:#fff;background:none}
+.btn-linha-claro:hover{border-color:var(--azul);color:var(--azul)}
+.desca{display:flex;align-items:center;gap:10px;margin-top:22px;font-family:var(--cond);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:var(--cinza)}
+.desca i{position:relative;width:22px;height:34px;border:1.5px solid var(--cinza);border-radius:12px}
+.desca i::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--azul);animation:rolinho 1.6s cubic-bezier(.2,.8,.2,1) infinite!important}
+@keyframes rolinho{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+.rotulo{display:inline-block;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--azul)}
+
+.palco-area{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.palco{position:relative;width:min(72vw,124vh);aspect-ratio:2048/1365;margin-bottom:-2.5vh;will-change:transform}
+.parte{position:absolute;will-change:transform}
+.parte img{width:100%;height:auto;display:block}
+.parte .g{position:absolute;inset:0;height:100%}
+.parte.roda{aspect-ratio:1}
+.parte .giro{opacity:0}
+#p-rt{left:.537%;top:31.575%;width:41.016%}
+#p-rf{left:57.91%;top:31.355%;width:41.016%}
+#p-qd{left:15.82%;top:17.509%;width:51.465%}
+#p-fr{left:61.621%;top:9.451%;width:18.408%}
+#p-se{left:25.684%;top:14.432%;width:13.477%}
+.sombra{position:absolute;left:0;right:0;top:90.2%;height:7%;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.8),transparent 72%)}
+
+/* etiquetas das peças: cada uma leva pra categoria da loja */
+.rot{position:absolute;z-index:6;white-space:nowrap;padding:7px 12px;background:rgba(8,12,16,.86);border-left:3px solid var(--azul);visibility:hidden;pointer-events:auto;transition:background .15s}
+.rot:hover{background:var(--azul)}
+.rot:hover span{color:#00131D}
+.rot b{display:block;font-family:var(--cond);font-style:italic;font-weight:800;font-size:18px;line-height:1.1;text-transform:uppercase;color:#fff}
+.rot span{font-size:11.5px;color:var(--cinza)}
+.rot-rt{left:8%;top:6%} .rot-rf{left:52%;top:6%}
+.rot-qd1{left:40%;top:-3%} .rot-qd2{left:6%;top:88%}
+.rot-fr1{left:58%;top:58%} .rot-fr2{left:70%;top:6%}
+.rot-se{left:62%;top:-38%}
+
+.b1{right:var(--mx);top:10vh;text-align:right;opacity:0;width:min(46vw,620px)}
+.b1 h2,.b2 h2{font-size:clamp(34px,4.3vw,70px);margin-top:6px}
+.b1 h2 em{color:var(--azul);font-style:italic}
+.b1 p,.b3 p{color:var(--gelo);margin:8px 0 0}
+.b2{left:var(--mx);top:8vh;opacity:0}
+.b3{left:0;right:0;top:8vh;text-align:center;opacity:0}
+.b3 h2{font-size:clamp(38px,5.6vw,92px)}
+.b3 p{font-size:18px}
+.cortina{position:absolute;inset:0;z-index:8;background:var(--azul);display:flex;align-items:center;justify-content:center;clip-path:circle(0% at 50% 72%)}
+.cortina-txt{font-family:var(--cond);font-style:italic;font-weight:800;font-size:13vw;text-transform:uppercase;color:#fff;white-space:nowrap;line-height:1}
+#rastro{position:fixed;inset:0;z-index:20;pointer-events:none}
+
+@media (max-width:760px){
+  .cena{height:560vh}
+  .b0{top:28px;width:auto;right:var(--mx)}
+  .b0 h1{font-size:clamp(40px,12vw,66px)}
+  .palco{width:112vw;margin-bottom:22vh;flex:none}
+  .b0b{left:var(--mx);right:var(--mx);width:auto;bottom:40px}
+  .b0b p{font-size:14px}
+  .acoes{margin-top:12px}.desca{display:none}
+  .palavra{top:52%;font-size:38vw}
+  .coroa-fundo{right:-22vw;width:90vw;height:90vw;margin-top:-30vw}
+  .horizonte{top:68%}
+  .b1{left:var(--mx);right:var(--mx);width:auto;text-align:left;top:6vh}
+  .b2{top:6vh;right:var(--mx)}
+  .rot{display:none}
+}
+
+/* sem GSAP (script não carregou): bike montada, sem rolagem longa */
+html.sem-movimento .cena{height:auto}
+html.sem-movimento .cena-fixa{position:relative;top:0}
+html.sem-movimento .b1,html.sem-movimento .b2,html.sem-movimento .b3,html.sem-movimento .cortina,html.sem-movimento .rot{display:none}
+html.sem-movimento .palavra{opacity:.3}
