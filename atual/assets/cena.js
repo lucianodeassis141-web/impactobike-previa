@@ -114,7 +114,7 @@
       if (u < L1 + LA) { var t = th1 + (u - L1) / RC; return [C[0] + RC * Math.cos(t), C[1] + RC * Math.sin(t)]; }
       u -= L1 + LA; return [T2[0] + d2[0] * u, T2[1] + d2[1] * u];
     }
-    var nomes = ['coroa', 'coroa-giro', 'pedivela', 'corrente', 'corrente-giro', 'cassete', 'cassete-giro', 'disco-tras'], im = {}, faltam = nomes.length, ok = false;
+    var nomes = ['coroa', 'coroa-giro', 'pedivela', 'corrente', 'corrente-giro', 'cassete', 'cassete-giro'], im = {}, faltam = nomes.length, ok = false;
     nomes.forEach(function (n) {
       var i = new Image(); i.decoding = 'async';
       i.onload = function () { if (--faltam === 0) { ok = true; desenha(ultA, true); } };
@@ -162,7 +162,6 @@
       var dfi = suave * Math.PI / 180 * RCOG / RC;
       cf.clearRect(0, 0, W, H); ca.clearRect(0, 0, W, H);
       // cassete (atrás do quadro e do câmbio): a foto parada; com velocidade, o borrão de giro
-      ca.globalAlpha = 1; ca.drawImage(im['disco-tras'], -313, 192);   // disco de trás fica no quadro (igual ao da frente, no garfo)
       ca.globalAlpha = 1 - o; ca.drawImage(im.cassete, 0, 488);
       if (o > 0) { ca.globalAlpha = o; ca.drawImage(im['cassete-giro'], 0, 488); }
       ca.globalAlpha = 1;
@@ -290,7 +289,7 @@
   Promise.race([pronta, new Promise(function (r) { setTimeout(r, 3500); })]).then(function () {
     html.classList.remove('cena-carregando'); html.classList.add('cena-pronta');
     if (lenis) lenis.resize();
-    luz(); rodas(); palavraGira(); entrada(); rolagem(); rastro();
+    luz(); rodas(); palavraGira(); entrada(); rolagem();   // rastro do mouse desligado (atrapalhava o cursor)
     ST.refresh();
   });
 })();
