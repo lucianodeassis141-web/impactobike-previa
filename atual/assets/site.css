@@ -51,6 +51,8 @@ h1{overflow-wrap:break-word;hyphens:auto}
 .topo-acoes{display:flex;gap:4px;flex:none}
 .topo-btn{position:relative;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:none;border:0;color:#fff}
 .topo-btn:hover{background:var(--grafite-2)}
+.topo-btn[href^="https://wa.me"]{transition:color .15s}
+.topo-btn[href^="https://wa.me"]:hover,.topo-btn[href^="https://wa.me"]:focus-visible{color:#25D366}
 .contador{position:absolute;top:3px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--vermelho);color:#fff;font:700 11px/18px var(--corpo);text-align:center}
 .contador[hidden]{display:none}
 .nav{display:flex;align-items:center;gap:4px;height:46px;overflow-x:auto;scrollbar-width:none}
