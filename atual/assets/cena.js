@@ -76,6 +76,7 @@
     var setR = rg.map(function (el) { return gsap.quickSetter(el, 'rotation', 'deg'); });
     var setC = gsap.quickSetter(coroa, 'rotation', 'deg');
     var setO = giros.map(function (el) { return gsap.quickSetter(el, 'opacity'); });
+    var nitidas = document.querySelectorAll('.parte.roda .g:not(.giro)'), setN = [].map.call(nitidas, function (el) { return gsap.quickSetter(el, 'opacity'); });
     gsap.ticker.add(function () {
       var a = estado.giro + estado.entrada, dv = Math.abs(a - ult); ult = a;
       suave += (dv - suave) * 0.22;
@@ -83,7 +84,7 @@
       setR.forEach(function (s) { s(a); });
       setC(-a * 0.16);
       var o = Math.max(0, Math.min(1, (suave - 2.4) / 9));
-      setO.forEach(function (s) { s(o); });
+      setO.forEach(function (s) { s(o); }); setN.forEach(function (s) { s(1 - o * 0.92); });
     });
   }
 
