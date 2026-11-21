@@ -17,6 +17,7 @@
   if (!gsap || !ST) {
     html.classList.add('sem-movimento');
     if (ab) ab.remove();
+    var dz = transmissao(); if (dz) dz(0, true);
     return;
   }
   gsap.registerPlugin(ST);
@@ -72,7 +73,7 @@
   /* rodas: o giro segue a distância percorrida; a versão borrada entra com a velocidade */
   function rodas() {
     var rg = $$('.parte.roda .g'), giros = $$('.parte.roda .giro'), coroa = $('.coroa-fundo');
-    var ult = 0, suave = 0;
+    var ult = 0, suave = 0, tr = transmissao();
     var setR = rg.map(function (el) { return gsap.quickSetter(el, 'rotation', 'deg'); });
     var setC = gsap.quickSetter(coroa, 'rotation', 'deg');
     var setO = giros.map(function (el) { return gsap.quickSetter(el, 'opacity'); });
@@ -82,10 +83,98 @@
       suave += (dv - suave) * 0.22;
       estado.vel = suave;
       setR.forEach(function (s) { s(a); });
+      if (tr) tr(a);
       setC(-a * 0.16);
       var o = Math.max(0, Math.min(1, (suave - 2.4) / 9));
       setO.forEach(function (s) { s(o); }); setN.forEach(function (s) { s(1 - o * 0.92); });
     });
+  }
+
+  /* transmissão: coroa, pedivela, pedais e corrente andando junto com a roda de trás.
+     Coordenadas da camada do quadro (1054x870, canvas com 960 de altura para o pedal não cortar). */
+  function transmissao() {
+    var fr = $('.tr-frente'), at = $('.tr-atras'); if (!fr || !at) return null;
+    var cf = fr.getContext('2d'), ca = at.getContext('2d'), W = fr.width, H = fr.height;
+    var C = [552.1, 681.2], RC = 66.5, RCOG = 78.5, PASSO = 13.125, ALT = 16;
+    var BR = 194.0, A0 = -1.83 * Math.PI / 180;               // pedivela: centro até o olho do pedal
+    var P0 = [150, 554.8], P3 = [160, 855.0];                 // pontas da corrente que anda (cassete e roldana)
+    function tang(P, cima) {
+      var dx = P[0] - C[0], dy = P[1] - C[1], d = Math.hypot(dx, dy), b = Math.atan2(dy, dx), g = Math.acos(RC / d);
+      var t1 = b + g, t2 = b - g, y1 = C[1] + RC * Math.sin(t1), y2 = C[1] + RC * Math.sin(t2);
+      return (cima ? y1 < y2 : y1 > y2) ? t1 : t2;
+    }
+    var th1 = tang(P0, true), th2 = tang(P3, false);
+    var T1 = [C[0] + RC * Math.cos(th1), C[1] + RC * Math.sin(th1)], T2 = [C[0] + RC * Math.cos(th2), C[1] + RC * Math.sin(th2)];
+    var L1 = Math.hypot(T1[0] - P0[0], T1[1] - P0[1]), d1 = [(T1[0] - P0[0]) / L1, (T1[1] - P0[1]) / L1];
+    var arco = th2 - th1; while (arco < 0) arco += Math.PI * 2;
+    var LA = arco * RC, L2 = Math.hypot(P3[0] - T2[0], P3[1] - T2[1]), d2 = [(P3[0] - T2[0]) / L2, (P3[1] - T2[1]) / L2];
+    var LT = L1 + LA + L2;
+    function ponto(u) {
+      if (u < L1) return [P0[0] + d1[0] * u, P0[1] + d1[1] * u];
+      if (u < L1 + LA) { var t = th1 + (u - L1) / RC; return [C[0] + RC * Math.cos(t), C[1] + RC * Math.sin(t)]; }
+      u -= L1 + LA; return [T2[0] + d2[0] * u, T2[1] + d2[1] * u];
+    }
+    var nomes = ['coroa', 'coroa-giro', 'pedivela', 'corrente', 'corrente-giro', 'cassete', 'cassete-giro'], im = {}, faltam = nomes.length, ok = false;
+    nomes.forEach(function (n) {
+      var i = new Image(); i.decoding = 'async';
+      i.onload = function () { if (--faltam === 0) { ok = true; desenha(ultA, true); } };
+      i.src = 'assets/cena/' + n + '.webp?v=2'; im[n] = i;
+    });
+    function pedal(c, x, y, fundo) {
+      c.save(); c.translate(x, y);
+      var g = c.createLinearGradient(0, -8, 0, 8);
+      if (fundo) { g.addColorStop(0, '#15171a'); g.addColorStop(1, '#0b0c0e'); }
+      else { g.addColorStop(0, '#34383f'); g.addColorStop(0.45, '#16181c'); g.addColorStop(1, '#262a30'); }
+      c.fillStyle = fundo ? '#0d0e10' : '#2b2f35';
+      for (var k = -3; k <= 3; k++) { if (!k) continue; var px = k * 12.5 - 1.2; c.fillRect(px, -10.5, 2.4, 3); c.fillRect(px, 7.5, 2.4, 3); }
+      c.beginPath(); c.moveTo(-44, -5); c.quadraticCurveTo(-44, -8, -40, -8); c.lineTo(40, -8); c.quadraticCurveTo(44, -8, 44, -5);
+      c.lineTo(44, 5); c.quadraticCurveTo(44, 8, 40, 8); c.lineTo(-40, 8); c.quadraticCurveTo(-44, 8, -44, 5); c.closePath();
+      c.fillStyle = g; c.fill();
+      if (!fundo) { c.strokeStyle = 'rgba(255,255,255,.10)'; c.lineWidth = 1; c.stroke(); }
+      c.beginPath(); c.arc(0, 0, 5.5, 0, Math.PI * 2); c.fillStyle = fundo ? '#1c1e21' : '#8d939b'; c.fill();
+      c.beginPath(); c.arc(0, 0, 2.2, 0, Math.PI * 2); c.fillStyle = fundo ? '#0b0c0e' : '#3a3e44'; c.fill();
+      c.restore();
+    }
+    function sprite(c, img, cx, cy, ang, ox, oy) {
+      c.save(); c.translate(cx, cy); c.rotate(ang); c.drawImage(img, -ox, -oy); c.restore();
+    }
+    function corrente(c, s, tile, alfa) {
+      var n0 = Math.floor(s / PASSO), fr0 = s - n0 * PASSO, hw = tile.width / 2;
+      c.save(); c.globalAlpha = alfa;
+      c.beginPath(); c.rect(147, 0, W, 745); c.rect(157, 745, W, H - 745); c.clip();
+      for (var k = -1; k * PASSO < LT + PASSO; k++) {
+        var u = k * PASSO + fr0, a = ponto(u), b = ponto(u + PASSO);
+        var g = k - n0, par = ((g % 2) + 2) % 2;
+        c.save(); c.translate(a[0], a[1]); c.rotate(Math.atan2(b[1] - a[1], b[0] - a[0]));
+        c.drawImage(tile, par * hw, 0, hw, tile.height, 0, -ALT / 2, Math.hypot(b[0] - a[0], b[1] - a[1]) + 0.6, ALT);
+        c.restore();
+      }
+      c.restore();
+    }
+    var ultA = 0, ultD = null, suave = 0;
+    function desenha(a, forca) {
+      if (!ok) { ultA = a; return; }
+      var dv = Math.abs(a - ultA); ultA = a; suave += (dv - suave) * 0.22;
+      if (!forca && a === ultD && suave < 0.01) return;
+      ultD = a;
+      var o = Math.max(0, Math.min(1, (suave - 2.4) / 9));
+      var s = a * Math.PI / 180 * RCOG, fi = s / RC;            // fi: ângulo da coroa (rad)
+      var dfi = suave * Math.PI / 180 * RCOG / RC;
+      cf.clearRect(0, 0, W, H); ca.clearRect(0, 0, W, H);
+      // cassete (atrás do quadro e do câmbio): a foto parada; com velocidade, o borrão de giro
+      ca.globalAlpha = 1 - o; ca.drawImage(im.cassete, 0, 488);
+      if (o > 0) { ca.globalAlpha = o; ca.drawImage(im['cassete-giro'], 0, 488); }
+      ca.globalAlpha = 1;
+      // pedivela e pedal ficam parados, como na foto; só a coroa e a corrente andam
+      cf.globalAlpha = 1 - o * 0.85; sprite(cf, im.coroa, C[0], C[1], fi, 80, 80);
+      if (o > 0) { cf.globalAlpha = o; sprite(cf, im['coroa-giro'], C[0], C[1], fi, 80, 80); }
+      cf.globalAlpha = 1;
+      if (o < 1) corrente(cf, s, im.corrente, 1);
+      if (o > 0) corrente(cf, 0, im['corrente-giro'], o);
+      sprite(cf, im.pedivela, C[0], C[1], 0, 230.1, 230.2);
+      pedal(cf, C[0] + BR * Math.cos(A0), C[1] + BR * Math.sin(A0), false);
+    }
+    return desenha;
   }
 
   /* palavra que gira no título (Text Rotate) */
