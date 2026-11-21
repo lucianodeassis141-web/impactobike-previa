@@ -241,7 +241,7 @@
       .to('.rot', { autoAlpha: 0, duration: 2 }, 61)
       .to('#b2', { y: -30, opacity: 0, duration: 4 }, 61)
       .to([rt, rf, fr, se], { x: 0, y: 0, duration: 11, ease: 'power3.inOut' }, 63)
-      .to(palco, { scale: m ? 0.92 : 0.96, y: 0, duration: 11, ease: 'power2.inOut' }, 63)
+      .to(palco, { scale: m ? 0.84 : 0.85, y: function () { return palco.offsetHeight * (m ? 0.06 : 0.055); }, duration: 11, ease: 'power2.inOut' }, 63)
       .to(estado, { giro: '+=260', luz: 1, duration: 11 }, 63)
       .fromTo('#b3', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 4 }, 74)
       .to('#b3', { opacity: 0, duration: 3 }, 83);
