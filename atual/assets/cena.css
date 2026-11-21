@@ -57,7 +57,7 @@ html.lenis,html.lenis body{height:auto}
 #p-rt{left:.537%;top:31.575%;width:41.016%}
 #p-rf{left:57.91%;top:31.355%;width:41.016%}
 #p-qd{left:15.82%;top:17.509%;width:51.465%}
-#p-fr{left:61.621%;top:9.451%;width:18.408%}
+#p-fr{left:61.621%;top:9.451%;width:21.484%}
 #p-se{left:25.684%;top:14.432%;width:13.477%}
 .sombra{position:absolute;left:0;right:0;top:90.2%;height:7%;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.8),transparent 72%)}
 
@@ -69,7 +69,7 @@ html.lenis,html.lenis body{height:auto}
 .rot span{font-size:11.5px;color:var(--cinza)}
 .rot-rt{left:8%;top:6%} .rot-rf{left:52%;top:6%}
 .rot-qd1{left:40%;top:-3%} .rot-qd2{left:6%;top:88%}
-.rot-fr1{left:58%;top:58%} .rot-fr2{left:70%;top:6%}
+.rot-fr1{left:49.7%;top:53.76%} .rot-fr2{left:59.98%;top:5.56%}
 .rot-se{left:62%;top:-38%}
 
 .b1{right:var(--mx);top:10vh;text-align:right;opacity:0;width:min(46vw,620px)}
