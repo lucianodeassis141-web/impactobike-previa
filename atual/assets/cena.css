@@ -25,7 +25,8 @@ html.lenis,html.lenis body{height:auto}
   background:linear-gradient(100deg,#232A31 0%,#5E6B78 18%,#E6EEF5 27%,#4C5864 38%,#1D242B 52%,#7E8C99 66%,#F4F8FB 74%,#44505B 86%,#1D242B 100%);background-size:220% 100%;background-position:var(--metal,0%) 0;
   -webkit-background-clip:text;background-clip:text;opacity:.3;transform:translateY(-50%);pointer-events:none;white-space:nowrap;text-transform:uppercase}
 
-.b{position:absolute;z-index:5}
+.b{position:absolute;z-index:5;pointer-events:none}
+.b a,.b button{pointer-events:auto}
 .b0{left:var(--mx);top:clamp(28px,8vh,110px);width:min(52vw,760px)}
 .b0 h1{font-size:clamp(46px,6.6vw,108px);line-height:.92}
 .roda-texto{display:block;position:relative;height:1em;overflow:hidden;color:var(--azul)}

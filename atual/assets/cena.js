@@ -132,7 +132,7 @@
       scrollTrigger: { trigger: cena, start: 'top top', end: 'bottom bottom', scrub: 0.5, invalidateOnRefresh: true,
         onUpdate: function (s) { html.style.setProperty('--metal', (s.progress * 220).toFixed(1) + '%'); } }
     });
-    tl.to(['#b0', '#b0b'], { y: -46, opacity: 0, duration: 7 }, 0)
+    tl.to(['#b0', '#b0b'], { y: -46, autoAlpha: 0, duration: 7 }, 0)
       .to(palco, { x: 0, scale: m ? 1 : 1.08, duration: 18, ease: 'power1.inOut' }, 2)
       .to('.palavra', { scale: 1.2, opacity: 0.16, duration: 26 }, 0)
       .fromTo('#b1', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 5 }, 10)
